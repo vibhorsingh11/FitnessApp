@@ -9,7 +9,11 @@
 
 # dependencies
 /node_modules
-/src/environments
+/src/environment.ts
+/src/environment.prod.ts
+
+# Ignore files related to API keys
+.env
 
 # profiling files
 chrome-profiler-events.json
