@@ -12,12 +12,7 @@ import * as fromTraining from './training.reducer';
 
 @Injectable()
 export class TrainingService {
-    private availableExercises: Exercise[] = [];
 
-    exerciseChanged = new Subject<Exercise>();
-    exercisesChanged = new Subject<Exercise[]>();
-    finishedExercisesChanged = new Subject<Exercise[]>();
-    private runningExercise: Exercise;
     private fbSubs: Subscription[] = [];
 
     constructor(private db: AngularFirestore, private uiService: UIService, private store: Store<fromTraining.State>) {}
@@ -40,7 +35,6 @@ export class TrainingService {
           }, error => {
             this.store.dispatch(new UI.StopLoading());
             this.uiService.snowSnackbar('Fetching Exercises failes, please try again later', null, 3000);
-            this.exercisesChanged.next(null);
           }));
     }
 
@@ -60,7 +54,7 @@ export class TrainingService {
             this.addDataToDatabase({ ...ex,
                 duration: ex.duration * (progress / 100),
                 calories: ex.calories * (progress / 100),
-                date: new Date(), state: 'completed'});
+                date: new Date(), state: 'cancelled'});
             this.store.dispatch(new Training.StopTraining());
         });
     }

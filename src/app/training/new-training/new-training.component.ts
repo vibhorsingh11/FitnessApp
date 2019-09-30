@@ -17,7 +17,6 @@ import * as fromRoot from '../../app.reducer';
 export class NewTrainingComponent implements OnInit {
   exercises$: Observable<Exercise[]>;
   isLoading = true;
-  private exerciseSubscription: Subscription;
   isLoading$: Observable<boolean>;
   loadingSubs: Subscription;
 
